@@ -26,3 +26,6 @@ waiting4@waiting4deMacBook-Pro trojan_link2xraycore_config % go run main.go stru
 ## 效果
 生成完`config.json`，之后上传到目标服务器中,使用`xray run -c config.json` 即可完成`xray`的`socks`监听。
 ![image](https://github.com/w4iting4/trojan_link2xraycore_config/assets/41547947/a7a7f43d-e21b-4c8e-95cb-78e87de608fe)
+
+最后会在本地生成一个`result.txt`,文件中你需要将domian替换为你运行`xray`的服务器`ip`地址。
+随后你可以使用:https://github.com/w4iting4/socks_enable 来检查`socks`的有效性

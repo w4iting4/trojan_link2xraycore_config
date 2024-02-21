@@ -55,6 +55,8 @@ func main() {
 	userPtr := flag.String("u", "", "Username for inbound settings")
 	passPtr := flag.String("pwd", "", "Password for inbound settings")
 	flag.Parse()
+	// 用于存储每次循环生成的 socks 信息
+	var socksInfo []string
 
 	tagCounter := *tagCounterPtr
 	user := *userPtr
@@ -155,6 +157,8 @@ func main() {
 			OutboundTag: fmt.Sprintf("trojan%d", tagCounter),
 		}
 		config.Routing.Rules = append(config.Routing.Rules, newRule)
+		socksFormat := fmt.Sprintf("socks5://%s:%s@domain:%d", user, pass, tagCounter)
+		socksInfo = append(socksInfo, socksFormat)
 		tagCounter++
 	}
 
@@ -169,5 +173,20 @@ func main() {
 	err = os.WriteFile(*configFilePath, updatedConfigData, 0644)
 	if err != nil {
 		fmt.Printf("Error writing updated config to file: %s\n", err)
+	}
+	resultFilePath := "result.txt"
+	resultFile, err := os.Create(resultFilePath)
+	if err != nil {
+		fmt.Printf("Error creating result file: %s\n", err)
+		return
+	}
+	defer resultFile.Close()
+
+	for _, info := range socksInfo {
+		_, err := resultFile.WriteString(info + "\n")
+		if err != nil {
+			fmt.Printf("Error writing to result file: %s\n", err)
+			return
+		}
 	}
 }
