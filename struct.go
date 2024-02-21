@@ -24,7 +24,7 @@ type API struct {
 
 type Inbound struct {
 	Tag            string                 `json:"tag"`
-	Listen         string                 `json:"listen"`
+	Listen         *string                `json:"listen"`
 	Port           int                    `json:"port"`
 	Protocol       string                 `json:"protocol"`
 	Settings       map[string]interface{} `json:"settings"`

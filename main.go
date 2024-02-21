@@ -96,9 +96,9 @@ func main() {
 			continue
 		}
 		newInbound := Inbound{
-			Tag:      fmt.Sprintf("inbound-0.0.0.0:%d", tagCounter),
 			Protocol: "socks", // 根据实际协议调整
 			Port:     tagCounter,
+			Listen:   nil,
 			Settings: map[string]interface{}{
 				"auth": "password",
 				"accounts": []map[string]interface{}{
@@ -110,6 +110,7 @@ func main() {
 				"udp": false,
 				"ip":  "127.0.0.1",
 			},
+			Tag:            fmt.Sprintf("inbound-0.0.0.0:%d", tagCounter),
 			StreamSettings: nil,
 			Sniffing:       nil,
 		}
